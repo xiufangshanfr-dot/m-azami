@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "actualites": "Actualités",
+    "oeuvres": "Œuvres",
+    "peintures": "Peintures",
+    "sculptures": "Sculptures",
+    "biographie": "Biographie",
+    "authentification": "Authentification"
+  },
+  "footer": {
+    "followUs": "Suivez-nous"
+  },
+  "contact": {
+    "title": "Authentification",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message (optionnel)",
+    "submit": "Envoyer",
+    "success": "Votre message a été envoyé.",
+    "error": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "works": {
+    "peintures": "Peintures",
+    "sculptures": "Sculptures"
+  }
+}

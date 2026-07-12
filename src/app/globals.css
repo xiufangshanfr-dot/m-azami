@@ -1,0 +1,128 @@
+@import '@fontsource-variable/eb-garamond';
+@import '@fontsource-variable/eb-garamond/wght-italic.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --cream: #fffbf7;
+    --ink: #1a1a18;
+    --brand: #b91c1c;
+    --muted: #9a9186;
+    --border: #e5ddd4;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--brand);
+    color: var(--cream);
+  }
+
+  ::-webkit-scrollbar { width: 2px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--muted); }
+
+  h1, h2, h3 {
+    font-family: 'EB Garamond Variable', Georgia, Cambria, serif;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 2.5rem;
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin-bottom: 1.5rem;
+  }
+
+  a {
+    transition: color 0.2s ease;
+  }
+}
+
+/* ── Page entrance animations ─────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter   { animation: fadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.page-enter-1 { animation: fadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+.page-enter-2 { animation: fadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+.page-enter-3 { animation: fadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both; }
+
+/* ── Nav underline slide ───────────────────────────────── */
+.nav-link {
+  position: relative;
+  padding-bottom: 2px;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 1px;
+  width: 0;
+  background-color: currentColor;
+  transition: width 0.22s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ── Rich text (biographie / actualités) ─────────────── */
+.prose-parissa {
+  font-size: 15px;
+  line-height: 1.85;
+  font-weight: 300;
+  color: var(--ink);
+}
+.prose-parissa p { margin-bottom: 1.25rem; }
+.prose-parissa strong { font-weight: 500; }
+.prose-parissa em { font-style: italic; }
+.prose-parissa h1,
+.prose-parissa h2,
+.prose-parissa h3 {
+  font-family: 'EB Garamond Variable', Georgia, serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+.prose-parissa a {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.prose-parissa a:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.prose-parissa blockquote {
+  border-left: 2px solid var(--border);
+  padding-left: 1.25rem;
+  font-style: italic;
+  color: var(--muted);
+  margin: 1.5rem 0;
+}
+.prose-parissa ul { list-style: none; padding: 0; }
+.prose-parissa ul li::before { content: '—  '; color: var(--muted); }

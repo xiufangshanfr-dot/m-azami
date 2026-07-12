@@ -1,0 +1,45 @@
+{
+  "name": "parissa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "payload": "payload"
+  },
+  "dependencies": {
+    "@fontsource-variable/eb-garamond": "^5.2.7",
+    "@payloadcms/db-postgres": "^3.86.0",
+    "@payloadcms/db-sqlite": "^3.86.0",
+    "@payloadcms/next": "^3.86.0",
+    "@payloadcms/richtext-lexical": "^3.86.0",
+    "graphql": "^16.8.1",
+    "next": "15.3.9",
+    "next-intl": "^4.1.0",
+    "payload": "^3.86.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
+    "@types/node": "^22.5.4",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.5.2",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.2"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "esbuild",
+      "sharp"
+    ]
+  }
+}
