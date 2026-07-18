@@ -2,16 +2,21 @@ import { withPayload } from '@payloadcms/next/withPayload'
 import createNextIntlPlugin from 'next-intl/plugin'
 import type { NextConfig } from 'next'
 import path from 'path'
-import type { Configuration } from 'webpack'
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
 const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com',
+      },
+    ],
   },
   serverExternalPackages: ['sharp'],
-  webpack: (config: Configuration, { isServer }: { isServer: boolean }) => {
+  webpack: (config, { isServer }) => {
     if (isServer) {
       config.resolve = config.resolve || {}
       config.resolve.alias = {

@@ -1,6 +1,7 @@
 import { buildConfig } from 'payload'
 import type { Block } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import {
   lexicalEditor,
   BoldFeature,
@@ -73,6 +74,12 @@ export default buildConfig({
     },
   ],
   globals: [Homepage, Biography, SiteSettings],
+  plugins: [
+    vercelBlobStorage({
+      collections: { media: true },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
   editor: lexicalEditor({
     features: () => [
       ParagraphFeature(),
@@ -100,6 +107,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI,
     },
+    push: true,
   }),
   upload: {
     limits: {

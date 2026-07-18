@@ -3,3 +3,5 @@ node_modules
 .env
 *.db
 .DS_Store
+.local-pg-data
+public/media
