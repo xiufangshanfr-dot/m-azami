@@ -62,19 +62,21 @@ export function Header() {
               {t('oeuvres')}
             </button>
             {oeuvresOpen && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-[var(--cream)] border border-[var(--border)] py-3 px-4 min-w-[120px] shadow-sm">
-                <Link
-                  href={`/${locale}/oeuvres/peintures`}
-                  className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
-                >
-                  {t('peintures')}
-                </Link>
-                <Link
-                  href={`/${locale}/oeuvres/sculptures`}
-                  className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
-                >
-                  {t('sculptures')}
-                </Link>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 min-w-[120px]">
+                <div className="bg-[var(--cream)] border border-[var(--border)] py-3 px-4 shadow-sm">
+                  <Link
+                    href={`/${locale}/oeuvres/peintures`}
+                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
+                  >
+                    {t('peintures')}
+                  </Link>
+                  <Link
+                    href={`/${locale}/oeuvres/sculptures`}
+                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
+                  >
+                    {t('sculptures')}
+                  </Link>
+                </div>
               </div>
             )}
           </div>
