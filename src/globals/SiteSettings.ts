@@ -8,13 +8,13 @@ export const SiteSettings: GlobalConfig = {
       name: 'siteName',
       type: 'text',
       label: 'Nom du site',
-      defaultValue: 'PARISSA',
+      defaultValue: 'MORY AZAMI',
     },
     {
       name: 'copyrightText',
       type: 'text',
       label: 'Texte de copyright',
-      defaultValue: '© 2026 PARISSA',
+      defaultValue: '© 2026 MORY AZAMI',
     },
     {
       name: 'instagramUrl',

@@ -44,7 +44,7 @@ export function Header() {
         {/* Brand */}
         <Link href={`/${locale}`}>
           <span className="font-garamond text-[1.35rem] text-[var(--brand)] uppercase tracking-[0.22em] hover:opacity-60 transition-opacity duration-300 select-none">
-            PARISSA
+            MORY AZAMI
           </span>
         </Link>
 

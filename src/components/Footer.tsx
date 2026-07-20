@@ -5,7 +5,7 @@ export async function Footer() {
   const payload = await getPayload({ config: configPromise })
   const settings = await payload.findGlobal({ slug: 'site-settings' }).catch(() => null)
 
-  const copyright = settings?.copyrightText || '© 2026 PARISSA'
+  const copyright = settings?.copyrightText || '© 2026 MORY AZAMI'
   const instagramUrl = settings?.instagramUrl || '#'
 
   return (

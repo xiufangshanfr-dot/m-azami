@@ -56,7 +56,7 @@ export default buildConfig({
   admin: {
     user: 'users',
     meta: {
-      titleSuffix: '— PARISSA Admin',
+      titleSuffix: '— MORY AZAMI Admin',
     },
     suppressHydrationWarning: true,
   },

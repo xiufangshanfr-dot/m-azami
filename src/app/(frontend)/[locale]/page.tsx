@@ -27,7 +27,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="page-enter mb-14">
           <Image
             src={(banner.image as { url: string }).url}
-            alt="PARISSA"
+            alt="MORY AZAMI"
             width={841}
             height={404}
             className="w-full h-auto object-cover"

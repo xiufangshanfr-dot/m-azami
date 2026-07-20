@@ -1,4 +1,4 @@
-/* PARISSA Admin — warm palette override */
+/* MORY AZAMI Admin — warm palette override */
 
 :root,
 [data-theme="light"] {
@@ -14,7 +14,7 @@
   --color-base-900: rgb(20, 18, 15);     /* #14120f */
   --color-base-1000: rgb(12, 10, 8);     /* #0c0a08 */
 
-  /* Brand accent — PARISSA red */
+  /* Brand accent — MORY AZAMI red */
   --color-success-250: rgb(185, 28, 28);
   --color-theme-success-light: var(--color-success-250);
 }
