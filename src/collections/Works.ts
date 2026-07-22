@@ -25,8 +25,10 @@ export const Works: CollectionConfig = {
       type: 'select',
       required: true,
       options: [
-        { label: 'Peinture', value: 'peinture' },
-        { label: 'Sculpture', value: 'sculpture' },
+        { label: 'Portrait', value: 'portrait' },
+        { label: 'Abstrait figuratif', value: 'abstrait-figuratif' },
+        { label: 'Abstrait', value: 'abstrait' },
+        { label: 'Divers', value: 'divers' },
       ],
     },
     {

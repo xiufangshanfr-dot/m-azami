@@ -62,19 +62,31 @@ export function Header() {
               {t('oeuvres')}
             </button>
             {oeuvresOpen && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 min-w-[120px]">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 min-w-[160px]">
                 <div className="bg-[var(--cream)] border border-[var(--border)] py-3 px-4 shadow-sm">
                   <Link
-                    href={`/${locale}/oeuvres/peintures`}
+                    href={`/${locale}/oeuvres/portrait`}
                     className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
                   >
-                    {t('peintures')}
+                    {t('portrait')}
                   </Link>
                   <Link
-                    href={`/${locale}/oeuvres/sculptures`}
+                    href={`/${locale}/oeuvres/abstrait-figuratif`}
                     className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
                   >
-                    {t('sculptures')}
+                    {t('abstraitFiguratif')}
+                  </Link>
+                  <Link
+                    href={`/${locale}/oeuvres/abstrait`}
+                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
+                  >
+                    {t('abstrait')}
+                  </Link>
+                  <Link
+                    href={`/${locale}/oeuvres/divers`}
+                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
+                  >
+                    {t('divers')}
                   </Link>
                 </div>
               </div>
@@ -115,8 +127,10 @@ export function Header() {
         <div className="lg:hidden border-t border-[var(--border)] bg-[var(--cream)] px-6 py-6 flex flex-col gap-5">
           {[
             ['/actualites', t('actualites')],
-            ['/oeuvres/peintures', t('peintures')],
-            ['/oeuvres/sculptures', t('sculptures')],
+            ['/oeuvres/portrait', t('portrait')],
+            ['/oeuvres/abstrait-figuratif', t('abstraitFiguratif')],
+            ['/oeuvres/abstrait', t('abstrait')],
+            ['/oeuvres/divers', t('divers')],
             ['/biographie', t('biographie')],
             ['/authentification', t('authentification')],
           ].map(([href, label]) => (

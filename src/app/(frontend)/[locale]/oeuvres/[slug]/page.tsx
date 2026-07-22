@@ -23,7 +23,7 @@ export default async function WorkDetailPage({
   if (!work) notFound()
 
   const image = typeof work.image === 'object' ? work.image : null
-  const backHref = `/${locale}/oeuvres/${work.type === 'peinture' ? 'peintures' : 'sculptures'}`
+  const backHref = `/${locale}/oeuvres/${work.type}`
 
   return (
     <article className="max-w-3xl">

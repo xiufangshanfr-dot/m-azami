@@ -1,21 +1,23 @@
 import { getPayload } from 'payload'
+import { getTranslations } from 'next-intl/server'
 import configPromise from '@payload-config'
 import { WorkCard } from '@/components/WorkCard'
 
-export default async function PeinturesPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function PortraitPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const payload = await getPayload({ config: configPromise })
+  const t = await getTranslations({ locale, namespace: 'works' })
 
   const works = await payload.find({
     collection: 'works',
-    where: { type: { equals: 'peinture' } },
+    where: { type: { equals: 'portrait' } },
     sort: 'order',
     locale: locale as 'fr' | 'en',
   }).catch(() => ({ docs: [] }))
 
   return (
     <div>
-      <h1 className="page-enter">Peintures</h1>
+      <h1 className="page-enter">{t('portrait')}</h1>
 
       {works.docs.length === 0 ? (
         <p className="text-[13px] text-[var(--muted)] font-light">À venir.</p>

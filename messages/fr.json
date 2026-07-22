@@ -2,8 +2,10 @@
   "nav": {
     "actualites": "Actualités",
     "oeuvres": "Œuvres",
-    "peintures": "Peintures",
-    "sculptures": "Sculptures",
+    "portrait": "Portrait",
+    "abstraitFiguratif": "Abstrait figuratif",
+    "abstrait": "Abstrait",
+    "divers": "Divers",
     "biographie": "Biographie",
     "authentification": "Authentification"
   },
@@ -20,7 +22,9 @@
     "error": "Une erreur s'est produite. Veuillez réessayer."
   },
   "works": {
-    "peintures": "Peintures",
-    "sculptures": "Sculptures"
+    "portrait": "Portrait",
+    "abstraitFiguratif": "Abstrait figuratif",
+    "abstrait": "Abstrait",
+    "divers": "Divers"
   }
 }
