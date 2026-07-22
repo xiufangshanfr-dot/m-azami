@@ -66,25 +66,25 @@ export function Header() {
                 <div className="bg-[var(--cream)] border border-[var(--border)] py-3 px-4 shadow-sm">
                   <Link
                     href={`/${locale}/oeuvres/portrait`}
-                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
+                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] normal-case text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
                   >
                     {t('portrait')}
                   </Link>
                   <Link
                     href={`/${locale}/oeuvres/abstrait-figuratif`}
-                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
+                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] normal-case text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
                   >
                     {t('abstraitFiguratif')}
                   </Link>
                   <Link
                     href={`/${locale}/oeuvres/abstrait`}
-                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
+                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] normal-case text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
                   >
                     {t('abstrait')}
                   </Link>
                   <Link
                     href={`/${locale}/oeuvres/divers`}
-                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
+                    className="block py-1.5 text-[10px] font-extralight tracking-[0.18em] normal-case text-[var(--ink)] hover:text-[var(--brand)] transition-colors nav-link"
                   >
                     {t('divers')}
                   </Link>
@@ -137,7 +137,7 @@ export function Header() {
             <Link
               key={href}
               href={`/${locale}${href}`}
-              className="text-[11px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors"
+              className={`text-[11px] font-extralight tracking-[0.18em] ${href.startsWith('/oeuvres/') ? 'normal-case' : 'uppercase'} text-[var(--ink)] hover:text-[var(--brand)] transition-colors`}
               onClick={() => setMobileOpen(false)}
             >
               {label}
