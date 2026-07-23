@@ -12,6 +12,7 @@ export default async function AbstraitFiguratifPage({ params }: { params: Promis
     collection: 'works',
     where: { type: { equals: 'abstrait-figuratif' } },
     sort: 'order',
+    limit: 0,
     locale: locale as 'fr' | 'en',
   }).catch(() => ({ docs: [] }))
 

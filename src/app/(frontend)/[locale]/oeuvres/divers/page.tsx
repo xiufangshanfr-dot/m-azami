@@ -12,6 +12,7 @@ export default async function DiversPage({ params }: { params: Promise<{ locale:
     collection: 'works',
     where: { type: { equals: 'divers' } },
     sort: 'order',
+    limit: 0,
     locale: locale as 'fr' | 'en',
   }).catch(() => ({ docs: [] }))
 

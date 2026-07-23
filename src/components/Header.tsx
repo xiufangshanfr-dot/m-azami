@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export function Header() {
   const t = useTranslations('nav')
@@ -12,12 +12,31 @@ export function Header() {
   const [oeuvresOpen, setOeuvresOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
+    }
+  }, [])
+
+  const openOeuvres = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+    setOeuvresOpen(true)
+  }
+
+  const closeOeuvresDelayed = () => {
+    closeTimeoutRef.current = setTimeout(() => setOeuvresOpen(false), 250)
+  }
 
   const otherLocale = locale === 'fr' ? 'en' : 'fr'
   const switchPath = pathname.replace(`/${locale}`, `/${otherLocale}`)
@@ -55,10 +74,14 @@ export function Header() {
           {/* Oeuvres dropdown */}
           <div
             className="relative"
-            onMouseEnter={() => setOeuvresOpen(true)}
-            onMouseLeave={() => setOeuvresOpen(false)}
+            onMouseEnter={openOeuvres}
+            onMouseLeave={closeOeuvresDelayed}
           >
-            <button className="nav-link text-[11px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors cursor-default">
+            <button
+              className="nav-link text-[11px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand)] transition-colors cursor-default py-2 -my-2"
+              aria-haspopup="true"
+              aria-expanded={oeuvresOpen}
+            >
               {t('oeuvres')}
             </button>
             {oeuvresOpen && (

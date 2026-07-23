@@ -12,6 +12,7 @@ export default async function PortraitPage({ params }: { params: Promise<{ local
     collection: 'works',
     where: { type: { equals: 'portrait' } },
     sort: 'order',
+    limit: 0,
     locale: locale as 'fr' | 'en',
   }).catch(() => ({ docs: [] }))
 

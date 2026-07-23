@@ -12,6 +12,7 @@ export default async function AbstraitPage({ params }: { params: Promise<{ local
     collection: 'works',
     where: { type: { equals: 'abstrait' } },
     sort: 'order',
+    limit: 0,
     locale: locale as 'fr' | 'en',
   }).catch(() => ({ docs: [] }))
 
