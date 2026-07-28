@@ -23,13 +23,13 @@ export function WorksGallery({ works }: { works: Work[] }) {
             onClick={() => setActiveIndex(i)}
             className="group block text-left"
           >
-            <div className="overflow-hidden bg-[var(--border)]">
+            <div className="overflow-hidden bg-[var(--border)] aspect-[380/430]">
               <Image
                 src={work.image.url}
                 alt={work.image.alt || work.title}
                 width={380}
                 height={430}
-                className="w-full aspect-[380/430] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.04]"
               />
             </div>
             <div className="mt-2.5">
