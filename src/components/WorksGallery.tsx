@@ -23,7 +23,7 @@ export function WorksGallery({ works }: { works: Work[] }) {
             onClick={() => setActiveIndex(i)}
             className="group block text-left"
           >
-            <div className="overflow-hidden bg-[var(--border)] aspect-[380/430]">
+            <div className="overflow-hidden bg-white aspect-[380/430]">
               <Image
                 src={work.image.url}
                 alt={work.image.alt || work.title}
