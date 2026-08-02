@@ -18,7 +18,7 @@ export default async function BiographiePage({ params }: { params: Promise<{ loc
   }).catch(() => null)
 
   return (
-    <div className="max-w-3xl">
+    <div>
       <h1 className="page-enter">Biographie</h1>
       {bio?.content ? (
         <div className="page-enter-1 prose-parissa">
