@@ -127,45 +127,18 @@
 .prose-parissa ul { list-style: none; padding: 0; }
 .prose-parissa ul li::before { content: '—  '; color: var(--muted); }
 
-/* ── Tiled image/text layout (biographie) ────────────── */
-.prose-parissa-tiled::after {
-  content: '';
-  display: table;
-  clear: both;
+/* ── Flat image/text flow (biographie) ───────────────── */
+.prose-figure {
+  margin: 2.5rem 0;
 }
 .prose-img {
   display: block;
+  width: 100%;
   height: auto;
-  border: 1px solid var(--border);
-  background: #fff;
 }
-.prose-img-left,
-.prose-img-right {
-  width: 46%;
-  max-width: 340px;
-  margin-bottom: 1.5rem;
-}
-.prose-img-left {
-  float: left;
-  margin-right: 1.75rem;
-}
-.prose-img-right {
-  float: right;
-  margin-left: 1.75rem;
-}
-.prose-img-center {
-  width: 70%;
-  max-width: 480px;
-  margin: 0 auto 1.5rem;
-}
-@media (max-width: 640px) {
-  .prose-img-left,
-  .prose-img-right,
-  .prose-img-center {
-    width: 100%;
-    max-width: none;
-    float: none;
-    margin-left: 0;
-    margin-right: 0;
-  }
+.prose-caption {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 12px;
+  color: var(--muted);
 }
