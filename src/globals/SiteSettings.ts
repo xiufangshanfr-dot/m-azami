@@ -14,7 +14,7 @@ export const SiteSettings: GlobalConfig = {
       name: 'copyrightText',
       type: 'text',
       label: 'Texte de copyright',
-      defaultValue: '© 2026 MORY AZAMI',
+      defaultValue: '© 2026 Mory AZAMI. Tous droits réservés.',
     },
     {
       name: 'instagramUrl',

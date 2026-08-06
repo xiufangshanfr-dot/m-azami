@@ -28,7 +28,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={locale as 'fr' | 'en'} messages={messages}>
           <div className="min-h-screen flex flex-col" style={{ background: 'var(--cream)' }}>
             <Header />
-            <main className="flex-1 px-6 md:px-10 lg:px-20 pt-28 pb-20">
+            <main className="flex-1 px-6 md:px-10 pt-28 pb-20 lg:pl-[18rem] lg:pr-16 lg:pt-20">
               {children}
             </main>
             <Footer />

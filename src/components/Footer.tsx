@@ -5,11 +5,11 @@ export async function Footer() {
   const payload = await getPayload({ config: configPromise })
   const settings = await payload.findGlobal({ slug: 'site-settings' }).catch(() => null)
 
-  const copyright = settings?.copyrightText || '© 2026 MORY AZAMI'
+  const copyright = settings?.copyrightText || '© 2026 Mory AZAMI. Tous droits réservés.'
   const instagramUrl = settings?.instagramUrl || '#'
 
   return (
-    <footer className="px-6 md:px-10 lg:px-20 pt-16 pb-6 mt-auto border-t border-[var(--border)]">
+    <footer className="px-6 md:px-10 pt-16 pb-6 mt-auto border-t border-[var(--border)] lg:pl-[18rem] lg:pr-16">
       <div className="flex flex-row justify-between items-center">
         <p className="text-[10px] font-extralight tracking-[0.14em] text-[var(--muted)] uppercase">
           {copyright}
