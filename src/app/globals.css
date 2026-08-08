@@ -1,5 +1,7 @@
 @import '@fontsource-variable/eb-garamond';
 @import '@fontsource-variable/eb-garamond/wght-italic.css';
+@import '@fontsource-variable/instrument-sans';
+@import '@fontsource-variable/instrument-sans/wght-italic.css';
 
 @tailwind base;
 @tailwind components;
@@ -7,11 +9,11 @@
 
 @layer base {
   :root {
-    --cream: #fffbf7;
-    --ink: #1a1a18;
+    --bg: #ffffff;
+    --ink: #161513;
     --brand: #b91c1c;
-    --muted: #9a9186;
-    --border: #e5ddd4;
+    --muted: #8c8b85;
+    --border: #e8e6e1;
   }
 
   html {
@@ -19,8 +21,9 @@
   }
 
   body {
-    background-color: var(--cream);
+    background-color: var(--bg);
     color: var(--ink);
+    font-family: 'Instrument Sans Variable', ui-sans-serif, system-ui, sans-serif;
     font-weight: 300;
     font-size: 15px;
     line-height: 1.75;
@@ -30,11 +33,11 @@
 
   ::selection {
     background-color: var(--brand);
-    color: var(--cream);
+    color: var(--bg);
   }
 
   ::-webkit-scrollbar { width: 2px; }
-  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--muted); }
 
   h1, h2, h3 {

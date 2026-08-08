@@ -44,7 +44,7 @@ export function Header() {
     <header className="contents">
       {/* Desktop vertical sidebar */}
       <div
-        className={`hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:left-0 lg:w-60 lg:z-50 lg:justify-between lg:px-10 lg:py-12 lg:bg-[var(--cream)] lg:border-r lg:border-[var(--border)] transition-opacity duration-300 ${
+        className={`hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:left-0 lg:w-60 lg:z-50 lg:justify-between lg:px-10 lg:py-12 lg:bg-[var(--bg)] lg:border-r lg:border-[var(--border)] transition-opacity duration-300 ${
           isHome ? 'opacity-45 hover:opacity-100' : 'opacity-100'
         }`}
       >
@@ -102,7 +102,7 @@ export function Header() {
       {/* Mobile top bar */}
       <div
         className={`lg:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? 'bg-[#fffbf7]/96 backdrop-blur-md border-b border-[var(--border)]' : ''
+          scrolled ? 'bg-[#ffffff]/96 backdrop-blur-md border-b border-[var(--border)]' : ''
         }`}
       >
         <div className="flex justify-between items-center px-6 md:px-10 py-5">
@@ -126,7 +126,7 @@ export function Header() {
         </div>
 
         {mobileOpen && (
-          <div className="border-t border-[var(--border)] bg-[var(--cream)] px-6 py-6 flex flex-col gap-5">
+          <div className="border-t border-[var(--border)] bg-[var(--bg)] px-6 py-6 flex flex-col gap-5">
             {mobileItems.map(([href, label]) => (
               <Link
                 key={href}

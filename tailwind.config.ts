@@ -6,15 +6,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream:  '#fffbf7',
-        ink:    '#1a1a18',
+        bg:     '#ffffff',
+        ink:    '#161513',
         brand:  '#b91c1c',
-        muted:  '#9a9186',
-        border: '#e5ddd4',
+        muted:  '#8c8b85',
+        border: '#e8e6e1',
       },
       fontFamily: {
         garamond: ['EB Garamond Variable', 'Georgia', 'Cambria', 'serif'],
-        sans: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Instrument Sans Variable', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
         gallery: '0.18em',

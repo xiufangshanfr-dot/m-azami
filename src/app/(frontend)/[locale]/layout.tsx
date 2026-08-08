@@ -26,7 +26,7 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <NextIntlClientProvider locale={locale as 'fr' | 'en'} messages={messages}>
-          <div className="min-h-screen flex flex-col" style={{ background: 'var(--cream)' }}>
+          <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)' }}>
             <Header />
             <main className="flex-1 px-6 md:px-10 pt-28 pb-20 lg:pl-[18rem] lg:pr-16 lg:pt-20">
               {children}
