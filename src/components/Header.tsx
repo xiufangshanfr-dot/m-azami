@@ -32,6 +32,7 @@ export function Header() {
   )
 
   const mobileItems: [string, string][] = [
+    ['', t('accueil')],
     ['/oeuvres/portrait', t('portrait')],
     ['/oeuvres/abstrait-figuratif', t('abstraitFiguratif')],
     ['/oeuvres/abstrait', t('abstrait')],
@@ -48,13 +49,9 @@ export function Header() {
           isHome ? 'opacity-45 hover:opacity-100' : 'opacity-100'
         }`}
       >
-        <Link href={`/${locale}`}>
-          <span className="font-garamond text-[1.15rem] text-[var(--brand)] uppercase tracking-[0.2em] hover:opacity-60 transition-opacity duration-300 select-none block">
-            MORY AZAMI
-          </span>
-        </Link>
-
         <nav className="flex flex-col gap-6">
+          {navItem('', t('accueil'))}
+
           <div>
             <span className="block text-[11px] font-extralight tracking-[0.18em] uppercase text-[var(--ink)] mb-3">
               {t('oeuvres')}
@@ -105,13 +102,7 @@ export function Header() {
           scrolled ? 'bg-[#ffffff]/96 backdrop-blur-md border-b border-[var(--border)]' : ''
         }`}
       >
-        <div className="flex justify-between items-center px-6 md:px-10 py-5">
-          <Link href={`/${locale}`}>
-            <span className="font-garamond text-[1.35rem] text-[var(--brand)] uppercase tracking-[0.22em] hover:opacity-60 transition-opacity duration-300 select-none">
-              MORY AZAMI
-            </span>
-          </Link>
-
+        <div className="flex justify-end items-center px-6 md:px-10 py-5">
           <button
             className="text-[var(--ink)] hover:text-[var(--brand)] transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}

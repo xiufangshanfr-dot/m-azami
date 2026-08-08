@@ -30,7 +30,7 @@ src/
 ├── app/
 │   ├── (frontend)/[locale]/
 │   │   ├── layout.tsx              # 共享布局：Header（左侧竖排导航）+ Footer
-│   │   ├── page.tsx                # 首页 (accueil) —— 极简封面：居中标题 + 留白 + Footer
+│   │   ├── page.tsx                # 首页 (Accueil) —— 居中标题 + 后台可编辑的模块化内容（按顺序平铺）+ Footer
 │   │   ├── actualites/
 │   │   │   ├── page.tsx            # Actualités 列表（无导航入口，仅可通过直接访问 URL 到达）
 │   │   │   └── [slug]/page.tsx     # Actualités 详情
@@ -48,16 +48,21 @@ src/
 │   ├── News.ts
 │   ├── Works.ts
 │   └── Messages.ts
+├── blocks/                         # 首页模块内容的 Payload Block 定义（`type: 'blocks'` 字段用）
+│   ├── ModuleOne.ts                # 模块1：title + image + link
+│   └── ModuleTwo.ts                # 模块2：title + images（定长3项，各含 image/caption/link）
 ├── globals/
-│   ├── Homepage.ts                 # 后台可编辑（banners/introText），但首页极简化后前台不再展示
+│   ├── Homepage.ts                 # 后台可编辑：modules（blocks 字段，Module 1 / Module 2，按后台排列顺序平铺展示在首页）
 │   ├── Biography.ts
 │   └── SiteSettings.ts
 ├── components/
-│   ├── Header.tsx                  # 左侧固定竖排导航（品牌名 + Œuvres常驻展开子分类 + Biographie + Authentification + 语言切换），移动端保留顶部条+汉堡菜单
+│   ├── Header.tsx                  # 左侧固定竖排导航（Accueil + Œuvres常驻展开子分类 + Biographie + Authentification + 语言切换，无品牌名文字），移动端保留顶部条+汉堡菜单
 │   ├── Footer.tsx                  # 版权 + Instagram
 │   ├── NewsCard.tsx                # 411×308 卡片
 │   ├── WorksGallery.tsx            # Oeuvres 网格 + 点击打开 Lightbox，图片 380×430 完整显示（不裁剪）
 │   ├── Lightbox.tsx                # 作品全屏查看（键盘/箭头导航）
+│   ├── ModuleOne.tsx               # 首页模块1 渲染：标题（加粗）+ 图片（不裁剪，四周留白）+ "查看"按钮（新标签页）
+│   ├── ModuleTwo.tsx               # 首页模块2 渲染：标题 + 三图并排（移动端单列堆叠），各图配说明文字与"查看"按钮
 │   └── ContactForm.tsx             # Authentification 表单
 ├── i18n/
 │   ├── routing.ts
@@ -106,8 +111,9 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 ### Globals（`src/globals/`）
 
 **Homepage.ts**
-- `banners`: array → `{ image: relationship→Media }`（支持多张，可增删）
-- `introText`: textarea, maxLength: 10000，多语言
+- `modules`: `blocks` 字段（block 定义见 `src/blocks/`），后台可新增任意数量、任意顺序的模块，按添加/拖拽排列顺序依次平铺展示在首页标题下方（无需额外 `order` 字段，blocks 数组顺序即展示顺序）：
+  - **Module 1**（`moduleOne`）：`title` 文本，必填，多语言，≤100字，前台加粗展示（H2 衬线大写样式）；`image` 上传→Media，必填，尺寸不限，前台完整展示不裁剪、四周留白；`link` 文本，必填，前台展示为"查看"按钮，新标签页打开
+  - **Module 2**（`moduleTwo`）：`title` 文本，必填，多语言，≤100字，前台不加粗（同 H2 样式）；`images` 定长数组（`minRows`/`maxRows` = 3，恰好3项），每项含 `image` 上传→Media（必填）、`caption` 文本（必填，多语言，≤100字，加粗展示）、`link` 文本（必填，"查看"按钮，新标签页打开）；前台三图并排展示，移动端单列堆叠
 
 **Biography.ts**
 - `content`: richText（Lexical），多语言
@@ -128,7 +134,7 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 
 ```
 ┌──────────────┐
-│  MORY AZAMI  │ ← 品牌名（点击回首页）
+│  ACCUEIL     │ ← 首页导航项，点击回首页
 │              │
 │  Œuvres      │
 │   ├ Portrait │
@@ -142,11 +148,13 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 └──────────────┘
 ```
 
+侧边栏顶部不再显示品牌名文字 "MORY AZAMI"（桌面端与移动端均已移除），返回首页统一通过 "ACCUEIL" 导航项完成，"ACCUEIL" 固定在导航列表第一位。
+
 首页（`/[locale]`）上这条竖排导航依然存在，但视觉上更低调（低透明度，鼠标悬停恢复正常），不同于其它页面的常规不透明显示。
 
 | 路由 | 功能 |
 |------|------|
-| `/[locale]` | 首页：极简封面，居中大标题 "MORY AZAMI" + 大片留白 + Footer，无 banner/无简介文字/无 Actualités 列表 |
+| `/[locale]` | 首页：居中大标题 "MORY AZAMI" + 后台 `modules` 驱动的内容模块（Module 1 / Module 2，按后台排列顺序平铺展示）+ Footer |
 | `/[locale]/actualites` | 新闻列表，2列网格，卡片 411×308（无导航入口，仅可直接访问 URL） |
 | `/[locale]/actualites/[slug]` | 新闻详情：标题 + 日期 + 富文本 |
 | `/[locale]/oeuvres/portrait` | Portrait 分类作品列表，3列网格，图片 380×430 |
@@ -164,24 +172,26 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 | 新闻卡片 | 411 × 308 px | `aspect-[411/308] object-cover`，容器背景 `bg-[var(--border)]` |
 | 作品卡片（Oeuvres） | 380 × 430 px | 容器固定 `aspect-[380/430]`，图片本身用 `object-contain` 完整显示、不裁剪，容器背景 `bg-white` 做 letterbox 填充 |
 | Lightbox 全屏 | 视口自适应 | `object-contain`，`max-h-[78vh]` |
+| 首页模块图片（Module 1 / Module 2） | 尺寸不限（≤10MB） | 纯 `<img>` + `.prose-img`（`width:100%; height:auto`），不裁剪，容器四周留白 |
 
 ### 字体规范
 | 元素 | 字体 | 大小 | 字重 |
 |------|------|------|------|
-| 页面标题 H1/H2 | EB Garamond，全大写 | `clamp(2rem, 5vw, 3.5rem)` / `clamp(1.4rem, 3vw, 2rem)` | 400 |
-| 正文 | 系统 sans-serif | 15px | 300 |
-| 新闻卡片文字 | 系统 sans-serif | 16px | 400 |
-| 作品卡片说明 | 系统 sans-serif | 12px | 400，italic |
-| 导航链接 | 系统 sans-serif，全大写 | 11px | 200（extralight） |
-| 图片说明 | 系统 sans-serif | 12px | 400，italic |
+| 页面标题 H1/H2 | EB Garamond Variable，全大写 | `clamp(2rem, 5vw, 3.5rem)` / `clamp(1.4rem, 3vw, 2rem)` | 400 |
+| 正文 | Instrument Sans Variable（`@fontsource-variable/instrument-sans`，降级 `ui-sans-serif, system-ui`） | 15px | 300 |
+| 新闻卡片文字 | Instrument Sans Variable | 16px | 400 |
+| 作品卡片说明 | Instrument Sans Variable | 12px | 400，italic |
+| 导航链接 | Instrument Sans Variable，全大写 | 11px | 200（extralight） |
+| 图片说明 | Instrument Sans Variable | 12px | 400，italic |
+| 首页模块2 图片说明 | Instrument Sans Variable | 14–15px | 700（bold） |
 
 ### 配色
 | 角色 | 值 |
 |------|-----|
-| 页面背景 | `#fffbf7`（暖米色，CSS 变量 `--cream`） |
-| 正文文字 | `#1a1a18`（CSS 变量 `--ink`） |
+| 页面背景 | `#ffffff`（纯白，CSS 变量 `--bg`） |
+| 正文文字 | `#161513`（CSS 变量 `--ink`） |
 | 品牌色 | `#b91c1c`（红，CSS 变量 `--brand`，用于网站标题和导航悬停） |
-| 次要文字/边框 | `--muted: #9a9186`，`--border: #e5ddd4` |
+| 次要文字/边框 | `--muted: #8c8b85`，`--border: #e8e6e1` |
 
 ---
 
@@ -189,7 +199,7 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 
 | 模块 | 后台操作 |
 |------|---------|
-| 首页 | 新增/删除 banner 图，编辑首页文本（字段仍可编辑，但首页改为极简封面后前台不再展示这些内容） |
+| 首页 | 按需新增/删除/拖拽排序内容模块（Module 1：图片+标题+查看链接；Module 2：三图+各自说明+查看链接），前台按后台排列顺序平铺展示 |
 | Actualités | 新增/编辑/删除新闻（标题、日期、富文本+图片）；前台仅可通过直接访问 URL 到达，导航中已无入口 |
 | Oeuvres | 新增/编辑/删除作品（图片、标题、四个分类之一：Portrait/Abstrait figuratif/Abstrait/Divers） |
 | Biographie | 富文本直接编辑 |

@@ -1,5 +1,6 @@
 {
   "nav": {
+    "accueil": "Accueil",
     "actualites": "Actualités",
     "oeuvres": "Œuvres",
     "portrait": "Portrait",
@@ -26,5 +27,8 @@
     "abstraitFiguratif": "Abstrait figuratif",
     "abstrait": "Abstrait",
     "divers": "Divers"
+  },
+  "home": {
+    "view": "Voir"
   }
 }
