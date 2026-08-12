@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
 
 interface LightboxImage {
@@ -41,7 +42,7 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
 
   if (!image) return null
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center"
       onClick={onClose}
@@ -108,6 +109,7 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
           </button>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
