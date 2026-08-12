@@ -41,29 +41,38 @@ src/
 │   │   │   ├── divers/page.tsx
 │   │   │   └── [slug]/page.tsx     # 孤立页面：不再有任何链接指向它（详情改用 Lightbox 全屏展示）
 │   │   ├── biographie/page.tsx
-│   │   └── authentification/page.tsx
+│   │   ├── contact/page.tsx        # 原 authentification/，已改名（内容不变）
+│   │   ├── portrait/page.tsx       # 单页三段式：Classique / Contemporain / Abstrait，各带醒目 H2 标题
+│   │   ├── peinture-abstrait/page.tsx
+│   │   └── cabinet-de-dessin/page.tsx
 │   └── (payload)/                  # Payload Admin UI（自动生成）
 ├── collections/
 │   ├── Media.ts
 │   ├── News.ts
-│   ├── Works.ts
+│   ├── Works.ts                    # 保留，前台已无导航入口（见"导航结构"），与新版 Portrait/Peinture abstrait/Cabinet de dessin 数据完全独立、本次未迁移
 │   └── Messages.ts
-├── blocks/                         # 首页模块内容的 Payload Block 定义（`type: 'blocks'` 字段用）
-│   ├── ModuleOne.ts                # 模块1：title + image + link
-│   └── ModuleTwo.ts                # 模块2：title + images（定长3项，各含 image/caption/link）
+├── blocks/                         # `type: 'blocks'` 字段用的 Payload Block 定义
+│   ├── ModuleOne.ts                # 首页模块1：title + image + link
+│   ├── ModuleTwo.ts                # 首页模块2：title + images（定长3项，各含 image/caption/link）
+│   ├── ArtworkRowBlock.ts          # "作品行"：itemCount（该行作品总数量）+ items（image/title/creationDate，长度须等于 itemCount）
+│   └── TextRowBlock.ts             # "文字块"：richText（继承全局 Lexical 特性集）
 ├── globals/
 │   ├── Homepage.ts                 # 后台可编辑：modules（blocks 字段，Module 1 / Module 2，按后台排列顺序平铺展示在首页）
 │   ├── Biography.ts
-│   └── SiteSettings.ts
+│   ├── SiteSettings.ts
+│   ├── Portrait.ts                 # classique / contemporain / abstrait 三个分组，各自一个 content（blocks: 作品行/文字块）字段
+│   ├── PeintureAbstrait.ts         # 单个 content（blocks: 作品行/文字块）字段，无子分类
+│   └── CabinetDeDessin.ts          # 单个 content（blocks: 作品行/文字块）字段，无子分类
 ├── components/
-│   ├── Header.tsx                  # 左侧固定竖排导航（Accueil + Œuvres常驻展开子分类 + Biographie + Authentification + 语言切换，无品牌名文字），移动端保留顶部条+汉堡菜单
+│   ├── Header.tsx                  # 左侧固定竖排导航（Accueil / Portrait（点箭头展开二级子分类）/ Peinture abstrait / Cabinet de dessin / Biographie / Contact + 语言切换，无品牌名文字），移动端保留顶部条+汉堡菜单
 │   ├── Footer.tsx                  # 版权 + Instagram
 │   ├── NewsCard.tsx                # 411×308 卡片
-│   ├── WorksGallery.tsx            # Oeuvres 网格 + 点击打开 Lightbox，图片 380×430 完整显示（不裁剪）
-│   ├── Lightbox.tsx                # 作品全屏查看（键盘/箭头导航）
+│   ├── WorksGallery.tsx            # 旧 Oeuvres 网格 + 点击打开 Lightbox，图片 380×430 完整显示（不裁剪）——保留，仅供无导航入口的 `oeuvres/*` 路由使用
+│   ├── Lightbox.tsx                # 作品全屏查看（键盘/箭头导航），被 WorksGallery 与新版 ContentBlocksRenderer 共用
 │   ├── ModuleOne.tsx               # 首页模块1 渲染：标题（加粗）+ 图片（不裁剪，四周留白）+ "查看"按钮（新标签页）
 │   ├── ModuleTwo.tsx               # 首页模块2 渲染：标题 + 三图并排（移动端单列堆叠），各图配说明文字与"查看"按钮
-│   └── ContactForm.tsx             # Authentification 表单
+│   ├── ContentBlocksRenderer.tsx   # Portrait/Peinture abstrait/Cabinet de dessin 的行内容渲染：作品行按实际图片数量渲染网格列数+点击 Lightbox；文字块用 RichText 渲染，与上下内容保留默认间距
+│   └── ContactForm.tsx             # Contact 表单
 ├── i18n/
 │   ├── routing.ts
 │   └── request.ts
@@ -93,13 +102,14 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 - `slug`: text, unique, auto-generated
 - `_status`: draft/published
 
-**Works.ts（Oeuvres）**
+**Works.ts（Oeuvres，旧版数据模型，保留未删除）**
 - `title`: text, required，多语言
 - `type`: select → `['portrait', 'abstrait-figuratif', 'abstrait', 'divers']`, required
 - `image`: relationship → Media, required
 - `description`: text（可选），多语言，italic 展示
 - `slug`: text, unique
 - `order`: number（排序）
+- 前台 `oeuvres/*` 路由仍可直接访问，但导航中已无入口；与下方 Portrait/Peinture abstrait/Cabinet de dessin 的新数据模型完全独立，本次改版未做任何数据迁移
 
 **Messages.ts（Authentification 接收）**
 - `name`: text, required
@@ -114,6 +124,13 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 - `modules`: `blocks` 字段（block 定义见 `src/blocks/`），后台可新增任意数量、任意顺序的模块，按添加/拖拽排列顺序依次平铺展示在首页标题下方（无需额外 `order` 字段，blocks 数组顺序即展示顺序）：
   - **Module 1**（`moduleOne`）：`title` 文本，必填，多语言，≤100字，前台加粗展示（H2 衬线大写样式）；`image` 上传→Media，必填，尺寸不限，前台完整展示不裁剪、四周留白；`link` 文本，必填，前台展示为"查看"按钮，新标签页打开
   - **Module 2**（`moduleTwo`）：`title` 文本，必填，多语言，≤100字，前台不加粗（同 H2 样式）；`images` 定长数组（`minRows`/`maxRows` = 3，恰好3项），每项含 `image` 上传→Media（必填）、`caption` 文本（必填，多语言，≤100字，加粗展示）、`link` 文本（必填，"查看"按钮，新标签页打开）；前台三图并排展示，移动端单列堆叠
+
+**Portrait.ts / PeintureAbstrait.ts / CabinetDeDessin.ts**（行式内容管理，三者共用同一套 Block 定义 `ArtworkRowBlock` / `TextRowBlock`）
+- `Portrait`（slug `portrait`）：`classique` / `contemporain` / `abstrait` 三个 `group` 分组，各自一个 `content`（`blocks` 字段）；三个子分类渲染在同一个 `/portrait` 页面上，各带醒目 H2 标题
+- `PeintureAbstrait`（slug `peinture-abstrait`）、`CabinetDeDessin`（slug `cabinet-de-dessin`）：各自一个 `content`（`blocks` 字段），无子分类
+- 每个 `content` 字段是 `blocks` 类型，后台新增内容时先选块类型：
+  - **作品行**（`ArtworkRowBlock`）：`itemCount` 数字，必填（该行作品总数量，需先设置）；`items` 数组，每项含 `image` 上传→Media（尺寸不限，不裁剪）、`title` 文本（必填，≤100字，多语言）、`creationDate` 纯文本（自由填写，非日期选择器）；保存时校验 `items.length` 必须等于 `itemCount`，不匹配则报错阻止保存。前台按该行实际图片数量渲染对应列数的网格（1~6 列，静态映射）
+  - **文字块**（`TextRowBlock`）：`content` 富文本（Lexical，继承全局编辑器特性集：加粗/斜体/下划线/删除线/标题 h1-h4/引用/链接/列表/分割线/对齐/图片上传），前台用 `RichText` 组件渲染，与上下内容之间默认保留间距
 
 **Biography.ts**
 - `content`: richText（Lexical），多语言
@@ -130,19 +147,20 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 
 ### 导航结构
 
-桌面端（`lg:` 及以上）导航固定在页面左侧、竖直排列；移动端保留顶部条 + 汉堡菜单展开的竖排列表。**Actualités 已从导航中移除**（页面和数据仍保留，只是没有入口）。
+桌面端（`lg:` 及以上）导航固定在页面左侧、竖直排列；移动端保留顶部条 + 汉堡菜单展开的竖排列表，两端共用同一份 `navConfig` 数据。**Actualités 已从导航中移除**（页面和数据仍保留，只是没有入口）；**Oeuvres 及其四个子分类也已从导航中移除**，由下方新的一级目录取代（`oeuvres/*` 路由本身未删除，仅无导航入口）。
 
 ```
 ┌──────────────┐
 │  ACCUEIL     │ ← 首页导航项，点击回首页
 │              │
-│  Œuvres      │
-│   ├ Portrait │
-│   ├ Abstrait figuratif
-│   ├ Abstrait │
-│   └ Divers   │ ← 常驻展开，非 hover 下拉
-│  Biographie  │
-│  Authentification
+│  PORTRAIT  ▸ │ ← 文字本身跳转 /portrait；旁边箭头单独展开/收起下方子菜单
+│   ├ Classique
+│   ├ Contemporain
+│   └ Abstrait │ ← 默认收起，点箭头展开；子项为 /portrait 页内锚点链接
+│  PEINTURE ABSTRAIT
+│  CABINET DE DESSIN
+│  BIOGRAPHIE  │
+│  CONTACT     │
 │              │
 │  FR / EN     │ ← 语言切换
 └──────────────┘
@@ -157,13 +175,12 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 | `/[locale]` | 首页：居中大标题 "MORY AZAMI" + 后台 `modules` 驱动的内容模块（Module 1 / Module 2，按后台排列顺序平铺展示）+ Footer |
 | `/[locale]/actualites` | 新闻列表，2列网格，卡片 411×308（无导航入口，仅可直接访问 URL） |
 | `/[locale]/actualites/[slug]` | 新闻详情：标题 + 日期 + 富文本 |
-| `/[locale]/oeuvres/portrait` | Portrait 分类作品列表，3列网格，图片 380×430 |
-| `/[locale]/oeuvres/abstrait-figuratif` | Abstrait figuratif 分类作品列表 |
-| `/[locale]/oeuvres/abstrait` | Abstrait 分类作品列表 |
-| `/[locale]/oeuvres/divers` | Divers 分类作品列表 |
-| `/[locale]/oeuvres/[slug]` | 孤立页面，无链接指向；作品详情改用点击卡片打开 `Lightbox` 全屏查看（键盘/箭头导航），不再跳转到独立详情页 |
+| `/[locale]/portrait` | 单页三段式：Classique / Contemporain / Abstrait，各带醒目 H2 标题 + 行式内容（作品行网格 / 文字块），锚点 `#classique` `#contemporain` `#abstrait` 供导航子菜单跳转 |
+| `/[locale]/peinture-abstrait` | 行式内容（作品行网格 / 文字块），无子分类 |
+| `/[locale]/cabinet-de-dessin` | 行式内容（作品行网格 / 文字块），无子分类 |
 | `/[locale]/biographie` | 富文本传记 |
-| `/[locale]/authentification` | 联系表单（姓名、邮件、留言） |
+| `/[locale]/contact` | 联系表单（姓名、邮件、留言），原 `authentification` 路由改名 |
+| `/[locale]/oeuvres/portrait` 等四个分类页 + `/[locale]/oeuvres/[slug]` | **保留但导航无入口**（旧版 Works 数据，本次未迁移，仅可直接访问 URL） |
 
 ### 图片尺寸规范
 | 用途 | 尺寸 | CSS |
@@ -173,6 +190,7 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 | 作品卡片（Oeuvres） | 380 × 430 px | 容器固定 `aspect-[380/430]`，图片本身用 `object-contain` 完整显示、不裁剪，容器背景 `bg-white` 做 letterbox 填充 |
 | Lightbox 全屏 | 视口自适应 | `object-contain`，`max-h-[78vh]` |
 | 首页模块图片（Module 1 / Module 2） | 尺寸不限（≤10MB） | 纯 `<img>` + `.prose-img`（`width:100%; height:auto`），不裁剪，容器四周留白 |
+| Portrait/Peinture abstrait/Cabinet de dessin 作品行图片 | 尺寸不限（≤10MB） | 同上，`<img>` + `.prose-img`；每行按实际图片数量（1~6）用静态 Tailwind 列数映射渲染网格 |
 
 ### 字体规范
 | 元素 | 字体 | 大小 | 字重 |
@@ -201,7 +219,8 @@ messages/                           # next-intl 翻译文件（仓库根目录�
 |------|---------|
 | 首页 | 按需新增/删除/拖拽排序内容模块（Module 1：图片+标题+查看链接；Module 2：三图+各自说明+查看链接），前台按后台排列顺序平铺展示 |
 | Actualités | 新增/编辑/删除新闻（标题、日期、富文本+图片）；前台仅可通过直接访问 URL 到达，导航中已无入口 |
-| Oeuvres | 新增/编辑/删除作品（图片、标题、四个分类之一：Portrait/Abstrait figuratif/Abstrait/Divers） |
+| Portrait / Peinture abstrait / Cabinet de dessin | 行式内容管理：新增一行前先选"作品行"或"文字块"。作品行需先设置该行"作品总数量"（整数），再逐个上传与数量精确匹配的作品（图片+标题+创作日期），数量不匹配时保存报错；文字块为富文本编辑器（支持加粗/斜体/标题/对齐等）。Portrait 额外分 Classique/Contemporain/Abstrait 三个子分类，各自独立维护 |
+| Oeuvres（旧版，导航已无入口） | 新增/编辑/删除作品（图片、标题、四个分类之一：Portrait/Abstrait figuratif/Abstrait/Divers），仅供已有数据存量维护，不建议新增内容 |
 | Biographie | 富文本直接编辑 |
 | Messages | 查看留言列表，标记未处理/已处理 |
 | 全局设置 | 修改版权文案（`© 2026 Mory AZAMI. Tous droits réservés.`）、Instagram 链接 |

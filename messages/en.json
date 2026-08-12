@@ -8,7 +8,12 @@
     "abstrait": "Abstract",
     "divers": "Miscellaneous",
     "biographie": "Biography",
-    "authentification": "Contact"
+    "authentification": "Contact",
+    "peintureAbstrait": "Abstract Painting",
+    "cabinetDeDessin": "Drawing Cabinet",
+    "contact": "Contact",
+    "classique": "Classic",
+    "contemporain": "Contemporary"
   },
   "footer": {
     "followUs": "Follow us"

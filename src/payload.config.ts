@@ -48,6 +48,9 @@ import { Messages } from './collections/Messages'
 import { Homepage } from './globals/Homepage'
 import { Biography } from './globals/Biography'
 import { SiteSettings } from './globals/SiteSettings'
+import { Portrait } from './globals/Portrait'
+import { PeintureAbstrait } from './globals/PeintureAbstrait'
+import { CabinetDeDessin } from './globals/CabinetDeDessin'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -73,7 +76,7 @@ export default buildConfig({
       ],
     },
   ],
-  globals: [Homepage, Biography, SiteSettings],
+  globals: [Homepage, Biography, SiteSettings, Portrait, PeintureAbstrait, CabinetDeDessin],
   plugins: [
     vercelBlobStorage({
       collections: { media: true },

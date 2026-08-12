@@ -8,13 +8,18 @@
     "abstrait": "Abstrait",
     "divers": "Divers",
     "biographie": "Biographie",
-    "authentification": "Authentification"
+    "authentification": "Authentification",
+    "peintureAbstrait": "Peinture abstrait",
+    "cabinetDeDessin": "Cabinet de dessin",
+    "contact": "Contact",
+    "classique": "Classique",
+    "contemporain": "Contemporain"
   },
   "footer": {
     "followUs": "Suivez-nous"
   },
   "contact": {
-    "title": "Authentification",
+    "title": "Contact",
     "name": "Nom",
     "email": "Email",
     "message": "Message (optionnel)",
