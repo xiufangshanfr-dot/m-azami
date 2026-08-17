@@ -1,12 +1,12 @@
 import type { Field, GlobalConfig } from 'payload'
-import { ArtworkRowBlock } from '../blocks/ArtworkRowBlock'
+import { PortraitArtworkRowBlock } from '../blocks/PortraitArtworkRowBlock'
 import { TextRowBlock } from '../blocks/TextRowBlock'
 
 const contentField: Field = {
   name: 'content',
   type: 'blocks',
   label: 'Contenu',
-  blocks: [ArtworkRowBlock, TextRowBlock],
+  blocks: [PortraitArtworkRowBlock, TextRowBlock],
 }
 
 export const Portrait: GlobalConfig = {
